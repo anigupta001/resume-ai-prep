@@ -4,7 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Brain, FileText, MessageSquare, BarChart3, Users, Clock, Target, Zap } from "lucide-react";
 import { InterviewSetup } from "@/components/interview/InterviewSetup";
-import { InterviewInterface } from "@/components/interview/InterviewInterface";
+import { EnhancedInterviewInterface } from "@/components/interview/EnhancedInterviewInterface";
+import { InterviewReview } from "@/components/interview/InterviewReview";
+import { InterviewDashboard } from "@/components/interview/InterviewDashboard";
 import { AnalyticsDashboard } from "@/components/analytics/AnalyticsDashboard";
 
 type AppState = 'landing' | 'setup' | 'interview' | 'analytics';
@@ -83,7 +85,7 @@ const Index = () => {
   }
 
   if (appState === 'interview' && interviewConfig) {
-    return <InterviewInterface config={interviewConfig} onComplete={completeInterview} />;
+    return <EnhancedInterviewInterface config={interviewConfig} onComplete={completeInterview} onBack={() => setAppState('landing')} />;
   }
 
   if (appState === 'analytics') {
