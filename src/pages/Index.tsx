@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useAuth } from "@/components/auth/AuthProvider";
+import { AuthForm } from "@/components/auth/AuthForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Brain, FileText, MessageSquare, BarChart3, Users, Clock, Target, Zap } from "lucide-react";
+import { Brain, FileText, MessageSquare, BarChart3, Users, Clock, Target, Zap, LogOut } from "lucide-react";
 import { InterviewSetup } from "@/components/interview/InterviewSetup";
 import { EnhancedInterviewInterface } from "@/components/interview/EnhancedInterviewInterface";
 import { InterviewReview } from "@/components/interview/InterviewReview";
@@ -21,8 +23,21 @@ interface InterviewConfig {
 }
 
 const Index = () => {
+  const { user, loading, signOut } = useAuth();
   const [appState, setAppState] = useState<AppState>('landing');
   const [interviewConfig, setInterviewConfig] = useState<InterviewConfig | null>(null);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <AuthForm />;
+  }
 
   const features = [
     {
@@ -102,14 +117,24 @@ const Index = () => {
               <Brain className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold">InterviewAI</span>
             </div>
-            <Button 
-              variant="outline" 
-              onClick={() => setAppState('analytics')}
-              className="flex items-center gap-2"
-            >
-              <BarChart3 className="h-4 w-4" />
-              View Analytics
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="outline" 
+                onClick={() => setAppState('analytics')}
+                className="flex items-center gap-2"
+              >
+                <BarChart3 className="h-4 w-4" />
+                View Analytics
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={signOut}
+                className="flex items-center gap-2"
+              >
+                <LogOut className="h-4 w-4" />
+                Sign Out
+              </Button>
+            </div>
           </div>
         </div>
       </header>
