@@ -14,214 +14,21 @@ export type Database = {
   }
   public: {
     Tables: {
-      interview_answers: {
+      test_table: {
         Row: {
-          ai_feedback: string | null
-          ai_score: number | null
-          answer_method: string | null
-          created_at: string
+          created_at: string | null
           id: string
-          question_id: string
-          session_id: string
-          time_taken_seconds: number | null
-          user_answer: string
+          name: string | null
         }
         Insert: {
-          ai_feedback?: string | null
-          ai_score?: number | null
-          answer_method?: string | null
-          created_at?: string
+          created_at?: string | null
           id?: string
-          question_id: string
-          session_id: string
-          time_taken_seconds?: number | null
-          user_answer: string
+          name?: string | null
         }
         Update: {
-          ai_feedback?: string | null
-          ai_score?: number | null
-          answer_method?: string | null
-          created_at?: string
+          created_at?: string | null
           id?: string
-          question_id?: string
-          session_id?: string
-          time_taken_seconds?: number | null
-          user_answer?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "interview_answers_question_id_fkey"
-            columns: ["question_id"]
-            isOneToOne: false
-            referencedRelation: "interview_questions"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "interview_answers_session_id_fkey"
-            columns: ["session_id"]
-            isOneToOne: false
-            referencedRelation: "interview_sessions"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      interview_questions: {
-        Row: {
-          ai_generated: boolean | null
-          created_at: string
-          difficulty: string
-          expected_answer: string | null
-          id: string
-          question_order: number
-          question_text: string
-          question_type: string
-          session_id: string
-        }
-        Insert: {
-          ai_generated?: boolean | null
-          created_at?: string
-          difficulty: string
-          expected_answer?: string | null
-          id?: string
-          question_order: number
-          question_text: string
-          question_type: string
-          session_id: string
-        }
-        Update: {
-          ai_generated?: boolean | null
-          created_at?: string
-          difficulty?: string
-          expected_answer?: string | null
-          id?: string
-          question_order?: number
-          question_text?: string
-          question_type?: string
-          session_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "interview_questions_session_id_fkey"
-            columns: ["session_id"]
-            isOneToOne: false
-            referencedRelation: "interview_sessions"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      interview_reviews: {
-        Row: {
-          ai_analysis: string | null
-          created_at: string
-          id: string
-          overall_score: number
-          recommendations: string[] | null
-          session_id: string
-          strengths: string[] | null
-          weaknesses: string[] | null
-        }
-        Insert: {
-          ai_analysis?: string | null
-          created_at?: string
-          id?: string
-          overall_score: number
-          recommendations?: string[] | null
-          session_id: string
-          strengths?: string[] | null
-          weaknesses?: string[] | null
-        }
-        Update: {
-          ai_analysis?: string | null
-          created_at?: string
-          id?: string
-          overall_score?: number
-          recommendations?: string[] | null
-          session_id?: string
-          strengths?: string[] | null
-          weaknesses?: string[] | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "interview_reviews_session_id_fkey"
-            columns: ["session_id"]
-            isOneToOne: false
-            referencedRelation: "interview_sessions"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      interview_sessions: {
-        Row: {
-          completed_at: string | null
-          created_at: string
-          duration_seconds: number | null
-          experience_level: string | null
-          id: string
-          interview_type: string
-          job_description: string | null
-          status: string
-          target_role: string | null
-          total_questions: number | null
-          total_score: number | null
-          updated_at: string
-          user_id: string | null
-        }
-        Insert: {
-          completed_at?: string | null
-          created_at?: string
-          duration_seconds?: number | null
-          experience_level?: string | null
-          id?: string
-          interview_type: string
-          job_description?: string | null
-          status?: string
-          target_role?: string | null
-          total_questions?: number | null
-          total_score?: number | null
-          updated_at?: string
-          user_id?: string | null
-        }
-        Update: {
-          completed_at?: string | null
-          created_at?: string
-          duration_seconds?: number | null
-          experience_level?: string | null
-          id?: string
-          interview_type?: string
-          job_description?: string | null
-          status?: string
-          target_role?: string | null
-          total_questions?: number | null
-          total_score?: number | null
-          updated_at?: string
-          user_id?: string | null
-        }
-        Relationships: []
-      }
-      profiles: {
-        Row: {
-          avatar_url: string | null
-          created_at: string
-          display_name: string | null
-          id: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          avatar_url?: string | null
-          created_at?: string
-          display_name?: string | null
-          id?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          avatar_url?: string | null
-          created_at?: string
-          display_name?: string | null
-          id?: string
-          updated_at?: string
-          user_id?: string
+          name?: string | null
         }
         Relationships: []
       }
@@ -237,6 +44,10 @@ export type Database = {
       is_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
+      }
+      test_public_schema_access: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
       }
       validate_session_status: {
         Args: { session_id: string; expected_status: string[] }
